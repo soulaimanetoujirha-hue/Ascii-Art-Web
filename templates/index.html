@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/design.css">
+    <script src="/static/script.js" defer></script>
+    <title>Ascii-art-web</title>
+</head>
+<body>
+    <main>
+        <h1>ASCII Art Web</h1>
+
+        <form method="POST" action="/ascii-art">
+            <label for="text">Your text</label>
+            <textarea id="text" name="text" rows="4" placeholder="Type something..." required>{{.Text}}</textarea>
+
+            <fieldset>
+                <legend>Banner</legend>
+                <label><input type="radio" name="banner" value="standard" {{if eq .Banner "standard"}}checked{{end}}> Standard</label>
+                <label><input type="radio" name="banner" value="shadow" {{if eq .Banner "shadow"}}checked{{end}}> Shadow</label>
+                <label><input type="radio" name="banner" value="thinkertoy" {{if eq .Banner "thinkertoy"}}checked{{end}}> Thinkertoy</label>
+            </fieldset>
+
+            <button type="submit">Generate</button>
+        </form>
+
+        {{if .Error}}
+        <p class="error">{{.Error}}</p>
+        {{end}}
+
+        {{if .Result}}
+        <section class="output">
+            <div class="output-header">
+                <h2>Result</h2>
+                <button type="button" id="download">Download .txt</button>
+            </div>
+            <pre id="result" class="result">{{.Result}}</pre>
+        </section>
+        {{end}}
+    </main>
+</body>
+</html>
